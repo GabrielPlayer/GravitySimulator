@@ -19,6 +19,18 @@ class Main:
         self.backgroundColor = (0,0,0)
         self.isRun = False
 
+    def createPlanet(self):
+        #TODO: create planet on right click and ask for mass with numpad input
+        pass
+
+    def deletePlanet(self):
+        #TODO: delete planet on left click
+        pass
+
+    def zoom(self):
+        #TODO: change the scale var of Planet class base on mouse scroll
+        pass
+
     def run(self):
         self.isRun = True
         while self.isRun:
