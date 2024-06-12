@@ -12,7 +12,9 @@ class Main:
 
         self.planetsGroup: list[Planet] = []
         self.planetsGroup.append(Planet(pos=(0,0), mass=2e30, vel=(0,0), color=(200,0,100)))
-        self.planetsGroup.append(Planet(pos=(1,0), mass=2e30, vel=(0,0), color=(200,0,100)))
+        self.planetsGroup.append(Planet(pos=(-1,0), mass=6e26, vel=(0,29.29), color=(25,112,219)))
+        self.planetsGroup.append(Planet(pos=(0.5,0), mass=6e26, vel=(0,29.78), color=(0,200,100)))
+        self.planetsGroup.append(Planet(pos=(1.3,0), mass=6e29, vel=(0,-30.78), color=(100,0,100)))
 
         self.backgroundColor = (0,0,0)
         self.isRun = False
