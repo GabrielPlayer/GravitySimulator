@@ -18,7 +18,7 @@ To run **GravitySimulator**, you need to have Python installed on your system. T
 
 ### Prerequisites
 
-- Python 3.x
+- Python 3.12
 - Pygame library
 
 ### Installing Dependencies
@@ -26,7 +26,7 @@ To run **GravitySimulator**, you need to have Python installed on your system. T
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/yourusername/GravitySimulator.git
+    git clone https://github.com/GabrielPlayer/GravitySimulator.git
     ```
 
 2. Navigate to the project directory:
