@@ -87,12 +87,12 @@ class Main:
                         self.zoomOut()
                 elif event.type == pygame.KEYDOWN:
                     self.keyPressed[event.key] = True
+                    if event.key == pygame.K_SPACE:
+                        self.pause()
                 elif event.type == pygame.KEYUP:
                     self.keyPressed[event.key] = False
 
 
-            if self.keyPressed.get(pygame.K_SPACE):
-                self.pause()
             for k in self.cameraControl.keys():
                 if self.keyPressed.get(k):
                     axe,direction = self.cameraControl.get(k)

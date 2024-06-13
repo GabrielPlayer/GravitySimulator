@@ -28,7 +28,7 @@ class Planet:
     def attraction(self, planet: Planet) -> tuple[float, float]:
         x,y = planet.pos[0]-self.pos[0],planet.pos[1]-self.pos[1]
         d = math.sqrt(x**2+y**2)
-        force = self.G*(planet.mass*self.mass)/(d**2)
+        force = self.G*(planet.mass*self.mass)/(d**2) if d != 0 else 0
         theta = math.atan2(y,x)
         fX, fY = math.cos(theta) * force, math.sin(theta) * force
         return (fX, fY)
