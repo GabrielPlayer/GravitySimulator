@@ -3,6 +3,8 @@ from random import randint
 from planet import Planet
 
 class Main:
+    SCROLL_SPEED = 5
+
     def __init__(self):
         pygame.init()
         self.screenSize = (800,800)
@@ -38,11 +40,11 @@ class Main:
 
     def zoomIn(self) -> None:
         #TODO: change the scale var of Planet class base on mouse scroll
-        pass
+        Planet.SCALE += self.SCROLL_SPEED / Planet.AU
 
     def zoomOut(self) -> None:
         #TODO: change the scale var of Planet class base on mouse scroll
-        pass
+        Planet.SCALE -= self.SCROLL_SPEED / Planet.AU if Planet.SCALE > self.SCROLL_SPEED / Planet.AU else 0
 
     def mouveCamera(self) -> None:
         #TODO: move the camera with the arrows keys
@@ -59,11 +61,11 @@ class Main:
                 elif event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1: #left click
                         self.createPlanet()
-                    elif event.type == 3: #right click
+                    elif event.button == 3: #right click
                         self.deletePlanet()
-                    elif event.type == 4: #scroll up
+                    elif event.button == 4: #scroll up
                         self.zoomIn()
-                    elif event.type == 5: #scroll down
+                    elif event.button == 5: #scroll down
                         self.zoomOut()
 
             for p in self.planetsGroup:
