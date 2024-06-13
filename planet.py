@@ -41,9 +41,17 @@ class Planet:
                     self.pos[1]+self.vel[1]*self.TIMESTEP)
         self.orbit.append(self.pos)
 
+    def isClick(self, mousePos: tuple[int,int]) -> bool:
+        windowPos = self.getWindowPos()
+        x,y = mousePos[0]-windowPos[0],mousePos[1]-windowPos[1]
+        d = math.sqrt(x**2+y**2)
+        return d <= self.radius*self.VISUAL_SCALE
+
+    def getWindowPos(self) -> tuple[int, int]:
+        return (self.pos[0] * self.SCALE + self.WIDTH / 2, self.pos[1] * self.SCALE + self.HEIGHT / 2)
+
     def draw(self, screen) -> None:
-        x = self.pos[0] * self.SCALE + self.WIDTH / 2
-        y = self.pos[1] * self.SCALE + self.HEIGHT / 2
+        x,y = self.getWindowPos()
         if len(self.orbit) > 2:
             updatePoints = [(point[0]*self.SCALE+self.WIDTH/2,point[1]*self.SCALE+self.HEIGHT/2) for point in self.orbit]
             pygame.draw.lines(screen, self.color, False, updatePoints)

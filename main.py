@@ -1,4 +1,5 @@
 import pygame
+import math
 from planet import Planet
 
 class Main:
@@ -19,17 +20,26 @@ class Main:
         self.backgroundColor = (0,0,0)
         self.isRun = False
 
-    def createPlanet(self):
+    def createPlanet(self) -> None:
         #TODO: create planet on right click and ask for mass with numpad input
         pass
 
-    def deletePlanet(self):
-        #TODO: delete planet on left click
-        pass
+    def deletePlanet(self) -> None:
+        print("click")
+        mouseCoords = pygame.mouse.get_pos()
+        for i,planet in enumerate(self.planetsGroup):
+            if planet.isClick(mouseCoords):
+                del self.planetsGroup[i]
+                return
 
-    def zoom(self):
+    def zoomIn(self) -> None:
         #TODO: change the scale var of Planet class base on mouse scroll
         pass
+
+    def zoomOut(self) -> None:
+        #TODO: change the scale var of Planet class base on mouse scroll
+        pass
+
 
     def run(self):
         self.isRun = True
@@ -39,6 +49,15 @@ class Main:
             for event in events:
                 if event.type == pygame.QUIT:
                     self.isRun = False
+                elif event.type == pygame.MOUSEBUTTONUP:
+                    if event.button == 1: #left click
+                        self.createPlanet()
+                    elif event.type == 3: #right click
+                        self.deletePlanet()
+                    elif event.type == 4: #scroll up
+                        self.zoomIn()
+                    elif event.type == 5: #scroll down
+                        self.zoomOut()
 
             for p in self.planetsGroup:
                 p.update(self.planetsGroup)
