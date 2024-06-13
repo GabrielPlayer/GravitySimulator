@@ -92,12 +92,10 @@ class Main:
                 elif event.type == pygame.KEYUP:
                     self.keyPressed[event.key] = False
 
-
             for k in self.cameraControl.keys():
                 if self.keyPressed.get(k):
                     axe,direction = self.cameraControl.get(k)
                     self.mouveCamera(axe, direction)
-
 
             for p in self.planetsGroup:
                 p.update(self.planetsGroup)
