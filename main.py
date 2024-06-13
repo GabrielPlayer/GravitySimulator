@@ -20,6 +20,7 @@ class Main:
         self.planetsGroup.append(Planet(pos=(1.3,0), mass=6e29, vel=(0,-30.78), color=(100,0,100)))
 
         self.backgroundColor = (0,0,0)
+        self.isPause = False
         self.isRun = False
 
     def createPlanet(self) -> None:
@@ -39,16 +40,21 @@ class Main:
                 return
 
     def zoomIn(self) -> None:
-        #TODO: change the scale var of Planet class base on mouse scroll
         Planet.SCALE += self.SCROLL_SPEED / Planet.AU
 
     def zoomOut(self) -> None:
-        #TODO: change the scale var of Planet class base on mouse scroll
         Planet.SCALE -= self.SCROLL_SPEED / Planet.AU if Planet.SCALE > self.SCROLL_SPEED / Planet.AU else 0
 
     def mouveCamera(self) -> None:
         #TODO: move the camera with the arrows keys
         pass
+
+    def pause(self) -> None:
+        self.isPause = not self.isPause
+        if self.isPause:
+            Planet.TIMESTEP = 0
+        else:
+            Planet.TIMESTEP = 3600*24
 
     def run(self):
         self.isRun = True
@@ -67,6 +73,10 @@ class Main:
                         self.zoomIn()
                     elif event.button == 5: #scroll down
                         self.zoomOut()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.pause()
+
 
             for p in self.planetsGroup:
                 p.update(self.planetsGroup)
