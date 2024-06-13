@@ -1,5 +1,5 @@
 import pygame
-import math
+from random import randint
 from planet import Planet
 
 class Main:
@@ -21,11 +21,15 @@ class Main:
         self.isRun = False
 
     def createPlanet(self) -> None:
-        #TODO: create planet on right click and ask for mass with numpad input
-        pass
+        mouseCoords = pygame.mouse.get_pos()
+        pos = ((mouseCoords[0]/Planet.SCALE-Planet.WIDTH/(2*Planet.SCALE))/Planet.AU,
+               (mouseCoords[1]/Planet.SCALE-Planet.HEIGHT/(2*Planet.SCALE))/Planet.AU)
+        mass = 6e29 #TODO: add keyboard input
+        vel = (randint(-10,10),randint(-10,10))
+        color = (randint(0,255), randint(0,255), randint(0,255))
+        self.planetsGroup.append(Planet(pos=pos, mass=mass, vel=vel, color=color))
 
     def deletePlanet(self) -> None:
-        print("click")
         mouseCoords = pygame.mouse.get_pos()
         for i,planet in enumerate(self.planetsGroup):
             if planet.isClick(mouseCoords):
@@ -40,6 +44,9 @@ class Main:
         #TODO: change the scale var of Planet class base on mouse scroll
         pass
 
+    def mouveCamera(self) -> None:
+        #TODO: move the camera with the arrows keys
+        pass
 
     def run(self):
         self.isRun = True
