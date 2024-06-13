@@ -54,11 +54,11 @@ No additional command-line arguments are needed.
 
 ### Controls
 
-- **Create Planet: Left-click in the simulation window to create a new planet at the cursor's location.
-- **Destroy Planet: Right-click on a planet to remove it from the simulation.
-- **Zoom In/Out: Use the scroll wheel to zoom in and out of the scene.
-- **Move Camera: Use the arrow keys to pan the camera view around the simulation space.
-- **Pause/Resume: Press the space bar to pause or resume the simulation.
+- **Create Planet**: Left-click in the simulation window to create a new planet at the cursor's location.
+- **Destroy Planet**: Right-click on a planet to remove it from the simulation.
+- **Zoom In/Out**: Use the scroll wheel to zoom in and out of the scene.
+- **Move Camera**: Use the arrow keys to pan the camera view around the simulation space.
+- **Pause/Resume**: Press the space bar to pause or resume the simulation.
 
 ## Simulation Mechanics
 
@@ -66,10 +66,10 @@ GravitySimulator models the gravitational interactions between planets based on 
 
 ## Scaling and Visualization
 
-- **The radius of each planet is scaled proportionally based on its mass. However, due to the significant mass difference between the Sun and smaller planets like Earth, there is a noticeable size discrepancy, making Earth-like planets appear very small relative to the Sun.
-- **The camera zoom and movement allow you to explore different parts of the simulation and observe planets at various scales.
+- The radius of each planet is scaled proportionally based on its mass. However, due to the significant mass difference between the Sun and smaller planets like Earth, there is a noticeable size discrepancy, making Earth-like planets appear very small relative to the Sun.
+- The camera zoom and movement allow you to explore different parts of the simulation and observe planets at various scales.
 
 ## Known Issues and Limitations
 
-- **Planet Size Discrepancy: Due to the high mass of the Sun compared to smaller planets, planets like Earth appear disproportionately small. This issue arises from - **scaling the radius directly based on mass.
-- **Performance: Adding a large number of planets may impact the simulation's performance, especially on lower-end systems.
+- **Planet Size Discrepancy**: Due to the high mass of the Sun compared to smaller planets, planets like Earth appear disproportionately small. This issue arises from scaling the radius directly based on mass.
+- **Performance**: Adding a large number of planets may impact the simulation's performance, especially on lower-end systems.
