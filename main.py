@@ -4,6 +4,7 @@ from planet import Planet
 
 class Main:
     SCROLL_SPEED = 5
+    CAMERA_SPEED = 5
 
     def __init__(self):
         pygame.init()
@@ -12,6 +13,12 @@ class Main:
 
         self.screen = pygame.display.set_mode(self.screenSize)
         self.clock, self.dt = pygame.time.Clock(), 0
+
+        self.cameraControl = {pygame.K_UP: (1,1),
+                              pygame.K_DOWN: (1,-1),
+                              pygame.K_LEFT: (0,1),
+                              pygame.K_RIGHT: (0,-1)}
+        self.keyPressed = {}
 
         self.planetsGroup: list[Planet] = []
         self.planetsGroup.append(Planet(pos=(0,0), mass=2e30, vel=(0,0), color=(200,0,100)))
@@ -23,10 +30,13 @@ class Main:
         self.isPause = False
         self.isRun = False
 
+    def calculPlanetPos(self, pos: tuple[int,int]) -> tuple[int,int]:
+        return ((pos[0]/Planet.SCALE-Planet.WIDTH/(2*Planet.SCALE))/Planet.AU,
+               (pos[1]/Planet.SCALE-Planet.HEIGHT/(2*Planet.SCALE))/Planet.AU)
+
     def createPlanet(self) -> None:
         mouseCoords = pygame.mouse.get_pos()
-        pos = ((mouseCoords[0]/Planet.SCALE-Planet.WIDTH/(2*Planet.SCALE))/Planet.AU,
-               (mouseCoords[1]/Planet.SCALE-Planet.HEIGHT/(2*Planet.SCALE))/Planet.AU)
+        pos = self.calculPlanetPos(mouseCoords)
         mass = 6e29 #TODO: add keyboard input
         vel = (randint(-10,10),randint(-10,10))
         color = (randint(0,255), randint(0,255), randint(0,255))
@@ -45,9 +55,11 @@ class Main:
     def zoomOut(self) -> None:
         Planet.SCALE -= self.SCROLL_SPEED / Planet.AU if Planet.SCALE > self.SCROLL_SPEED / Planet.AU else 0
 
-    def mouveCamera(self) -> None:
-        #TODO: move the camera with the arrows keys
-        pass
+    def mouveCamera(self, axe: int, direction: int) -> None:
+        updateTuple = lambda t,a,d: (t[0]+d*self.CAMERA_SPEED, t[1]) if a == 0 else (t[0], t[1]+d*self.CAMERA_SPEED)
+        for planet in self.planetsGroup:
+            planet.pos = tuple(map(lambda c: c*Planet.AU, self.calculPlanetPos(updateTuple(planet.getWindowPos(planet.pos), axe, direction))))
+            planet.orbit = [tuple(map(lambda c: c*Planet.AU, self.calculPlanetPos(updateTuple(planet.getWindowPos(orb), axe, direction)))) for orb in planet.orbit]
 
     def pause(self) -> None:
         self.isPause = not self.isPause
@@ -74,8 +86,17 @@ class Main:
                     elif event.button == 5: #scroll down
                         self.zoomOut()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        self.pause()
+                    self.keyPressed[event.key] = True
+                elif event.type == pygame.KEYUP:
+                    self.keyPressed[event.key] = False
+
+
+            if self.keyPressed.get(pygame.K_SPACE):
+                self.pause()
+            for k in self.cameraControl.keys():
+                if self.keyPressed.get(k):
+                    axe,direction = self.cameraControl.get(k)
+                    self.mouveCamera(axe, direction)
 
 
             for p in self.planetsGroup:
